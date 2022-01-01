@@ -41,7 +41,7 @@ telegram_dispatcher = telegram_updater.dispatcher
 
 accounts_instagram = load_json("progress.json")
 instagram = Client()
-instagram.login(username="timfors003", password="weas2222")
+instagram.login(username="timfors100", password="weas2222")
 
 
 def get_followers(username):
@@ -97,15 +97,15 @@ def get_followers_text(account: InstAccount, followers):
     followers_dict = ['Заи Дня для ', 'Встречайте новобранцев в рядах ',
                       'Работяги, достойные внимания для ', "Подписались на ",
                       "Пополнение в болоте "]
-    followers_usernames = str.join(['\n' + str(username) for username in followers])
-    return followers_dict[random.Random.randint(0, len(followers_dict))] + f"@{account}:" + followers_usernames
+    followers_usernames = "".join(['\n' + str(username) for username in followers])
+    return followers_dict[random.Random().randint(a=0, b=len(followers_dict) - 1)] + f"@{account.username}:" + followers_usernames
 
 def get_unfollowers_text(account: InstAccount, unfollowers):
     unfollowers_dict = ['Гандилы для ', 'В них может плеваться  ',
                         'Пид#расы у ', "Ушли и похуй ",
                         "Какие же чмины были у заи "]
-    followers_usernames = str.join(['\n' + str(username) for username in unfollowers])
-    return unfollowers_dict[random.Random.randint(0, len(unfollowers_dict))] + f"@{account}:" + followers_usernames
+    followers_usernames = "".join(['\n' + str(username) for username in unfollowers])
+    return unfollowers_dict[random.Random().randint(a=0, b=len(unfollowers_dict) - 1)] + f"@{account.username}:" + followers_usernames
 
 
 def check_account(account: InstAccount):
@@ -125,10 +125,10 @@ def check_account(account: InstAccount):
 def check_accounts():
     delay_time = len(accounts_instagram) ** 0.5
     for account in accounts_instagram:
-        try:
-            check_account(account)
-        except Exception:
-            print("Some Errors")
+#        try:
+        check_account(account)
+#        except Exception:
+ #           print("Some Errors")
         sleep(delay_time)
 
 
@@ -136,6 +136,6 @@ telegram_dispatcher.add_handler(CommandHandler("set", set))
 telegram_dispatcher.add_handler(CommandHandler("unset", unset))
 telegram_updater.start_polling()
 while True:
+    sleep(300)
     check_accounts()
-    sleep(60)
 telegram_updater.idle()
