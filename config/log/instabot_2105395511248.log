@@ -1,0 +1,7 @@
+2022-01-01 16:39:03,048 - instabot version: 0.117.0 (bot) - INFO - Instabot version: 0.117.0 Started
+2022-01-01 16:39:03,049 - instabot version: 0.117.0 (bot) - DEBUG - Bot imported from C:\Users\tkhab\PycharmProjects\InstagramSubMonitoring\venv\lib\site-packages\instabot\bot\bot.py
+2022-01-01 16:39:03,049 - instabot version: 0.117.0 (api_login) - INFO - Not yet logged in starting: PRE-LOGIN FLOW!
+2022-01-01 16:39:03,052 - instabot version: 0.117.0 (api) - WARNING - Proxy URL had no scheme, should start with http:// or https://
+2022-01-01 16:39:03,054 - instabot version: 0.117.0 (api) - WARNING - Proxy URL had no scheme, should start with http:// or https://
+2022-01-01 16:39:03,059 - instabot version: 0.117.0 (api) - WARNING - Proxy URL had no scheme, should start with http:// or https://
+2022-01-01 16:39:03,060 - instabot version: 0.117.0 (api) - WARNING - Proxy URL had no scheme, should start with http:// or https://
