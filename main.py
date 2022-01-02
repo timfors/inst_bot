@@ -134,7 +134,7 @@ def monitorings(update: Update, contex: CallbackContext):
     target_users = [account.username for account in accounts_instagram if telegram_id in account.telegrams]
     text = "Специально для тебя! И только для тебя! Слежу за:\n"
     text += "\n".join(map(str, target_users))
-    text += "Можешь не благодарить."
+    text += "\nМожешь не благодарить."
     update.message.reply_text(text)
 
 
