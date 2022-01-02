@@ -98,7 +98,7 @@ def get_followers_text(account: InstAccount, followers):
                       'Работяги, достойные внимания для ', "Подписались на ",
                       "Пополнение в болоте "]
     followers_usernames = "".join(['\n@' + str(username) for username in followers])
-    return followers_dict[random.Random().randint(a=0, b=len(followers_dict) - 1)] + f"@{account.username}:\n- - - -" + followers_usernames
+    return followers_dict[random.Random().randint(a=0, b=len(followers_dict) - 1)] + f"@{account.username}:\n" + followers_usernames + "\n\n"
 
 
 def get_unfollowers_text(account: InstAccount, unfollowers):
@@ -106,7 +106,7 @@ def get_unfollowers_text(account: InstAccount, unfollowers):
                         'Пид#расы у ', "Ушли и похуй ",
                         "Какие же чмины были у заи "]
     followers_usernames = "".join(['\n@' + str(username) for username in unfollowers])
-    return unfollowers_dict[random.Random().randint(a=0, b=len(unfollowers_dict) - 1)] + f"@{account.username}:\n- - - -" + followers_usernames
+    return unfollowers_dict[random.Random().randint(a=0, b=len(unfollowers_dict) - 1)] + f"@{account.username}:\n" + followers_usernames + "\n\n"
 
 
 def check_account(account: InstAccount):
