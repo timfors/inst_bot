@@ -52,7 +52,7 @@ def add_username(username, telegram_id, accounts = []):
     matches = [account for account in accounts if account.username == username]
     if len(matches) > 0:
         if telegram_id in matches[0].telegrams:
-            return f"Дак мы же уже следим за {username}. Ну ты даешь, подруга..."
+            return f"Дак мы же уже следим за @{username}. Ну ты даешь, подруга..."
         matches[0].telegrams.append(telegram_id)
         save_json(accounts, "progress.json")
     else:
@@ -74,7 +74,7 @@ def remove_username(username, telegram_id, accounts = []):
         save_json(accounts, "progress.json")
         return f"Все! Отныне мне похуй на @{username}"
     else:
-        return "Я хз, ошибка у тебя или нет, но за ним и так слежки не было"
+        return f"Я хз, ошибка у тебя или нет, но за @{username} и так слежки не было"
 
 
 def set(update: Update, context: CallbackContext):
@@ -97,15 +97,16 @@ def get_followers_text(account: InstAccount, followers):
     followers_dict = ['Заи Дня для ', 'Встречайте новобранцев в рядах ',
                       'Работяги, достойные внимания для ', "Подписались на ",
                       "Пополнение в болоте "]
-    followers_usernames = "".join(['\n' + str(username) for username in followers])
-    return followers_dict[random.Random().randint(a=0, b=len(followers_dict) - 1)] + f"@{account.username}:" + followers_usernames
+    followers_usernames = "".join(['\n@' + str(username) for username in followers])
+    return followers_dict[random.Random().randint(a=0, b=len(followers_dict) - 1)] + f"@{account.username}:\n- - - -" + followers_usernames
+
 
 def get_unfollowers_text(account: InstAccount, unfollowers):
     unfollowers_dict = ['Гандилы для ', 'В них может плеваться  ',
                         'Пид#расы у ', "Ушли и похуй ",
                         "Какие же чмины были у заи "]
-    followers_usernames = "".join(['\n' + str(username) for username in unfollowers])
-    return unfollowers_dict[random.Random().randint(a=0, b=len(unfollowers_dict) - 1)] + f"@{account.username}:" + followers_usernames
+    followers_usernames = "".join(['\n@' + str(username) for username in unfollowers])
+    return unfollowers_dict[random.Random().randint(a=0, b=len(unfollowers_dict) - 1)] + f"@{account.username}:\n- - - -" + followers_usernames
 
 
 def check_account(account: InstAccount):
