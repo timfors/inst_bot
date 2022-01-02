@@ -41,7 +41,7 @@ telegram_dispatcher = telegram_updater.dispatcher
 
 accounts_instagram = load_json("progress.json")
 instagram = Client()
-instagram.login(username="timfors100", password="weas2222")
+instagram.login(username="timfors003", password="weas2222")
 
 
 def get_followers(username):
