@@ -125,15 +125,22 @@ def check_account(account: InstAccount):
 def check_accounts():
     delay_time = len(accounts_instagram) ** 0.5
     for account in accounts_instagram:
-#        try:
         check_account(account)
-#        except Exception:
- #           print("Some Errors")
         sleep(delay_time)
+
+
+def monitorings(update: Update, contex: CallbackContext):
+    telegram_id = update.message.chat_id
+    target_users = [account.username for account in accounts_instagram if telegram_id in account.telegrams]
+    text = "Специально для тебя! И только для тебя! Слежу за:\n"
+    text += "\n".join(map(str, target_users))
+    text += "Можешь не благодарить."
+    update.message.reply_text(text)
 
 
 telegram_dispatcher.add_handler(CommandHandler("set", set))
 telegram_dispatcher.add_handler(CommandHandler("unset", unset))
+telegram_dispatcher.add_handler(CommandHandler("monitorings", monitorings))
 telegram_updater.start_polling()
 while True:
     sleep(300)
