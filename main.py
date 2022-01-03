@@ -140,7 +140,7 @@ def all_monitorings(update: Update, contex: CallbackContext):
 
 def help(update: Update, contex: CallbackContext):
     text = "Бот уведомляет о новых подписках | отписках просматриваемых аккаунтов в инсте. ПРИВАТНЫЕ АККАУНТЫ НЕ ПРОСМАТРИВАЮТСЯ.\n\n" \
-            "Команды:\n/set - Добавляет аккаунты для мониторинга.Пример:\n\set - biba boba\n\n/unset - Убирает аккаунты из мониторинга.Пример:\n/unset biba boba" \
+            "Команды:\n/set - Добавляет аккаунты для мониторинга.Пример:\n/set - biba @boba\n\n/unset - Убирает аккаунты из мониторинга.Пример:\n/unset @biba boba\n\n" \
             "/monitoring - Отображает все аккаунты, за которыми бот следит для вас"
     update.message.reply_text(text)
 
