@@ -67,7 +67,7 @@ def set(update: Update, context: CallbackContext):
     usernames = update.message.text.split(' ')
     usernames.pop(0)
     for username in usernames:
-        update.message.reply_text(add_username(username, chat_id, t_username, accounts_instagram))
+        update.message.reply_text(add_username(username.replace('@', ''), chat_id, t_username, accounts_instagram))
 
 
 def unset(update: Update, contex: CallbackContext):
@@ -76,7 +76,7 @@ def unset(update: Update, contex: CallbackContext):
     usernames = update.message.text.split(' ')
     usernames.pop(0)
     for username in usernames:
-        update.message.reply_text(remove_username(username, chat_id, t_username, accounts_instagram))
+        update.message.reply_text(remove_username(username.replace('@', ''), chat_id, t_username, accounts_instagram))
 
 
 def get_followers_text(account: InstAccount, followers):
@@ -138,10 +138,18 @@ def all_monitorings(update: Update, contex: CallbackContext):
                 update.message.reply_text(text)
 
 
+def help(update: Update, contex: CallbackContext):
+    text = "Бот уведомляет о новых подписках | отписках просматриваемых аккаунтов в инсте. ПРИВАТНЫЕ АККАУНТЫ НЕ ПРОСМАТРИВАЮТСЯ.\n\n" \
+            "Команды:\n/set - Добавляет аккаунты для мониторинга.Пример:\n\set - biba boba\n\n/unset - Убирает аккаунты из мониторинга.Пример:\n/unset biba boba" \
+            "/monitoring - Отображает все аккаунты, за которыми бот следит для вас"
+    update.message.reply_text(text)
+
 telegram_dispatcher.add_handler(CommandHandler("set", set))
 telegram_dispatcher.add_handler(CommandHandler("unset", unset))
 telegram_dispatcher.add_handler(CommandHandler("monitorings", monitorings))
 telegram_dispatcher.add_handler(CommandHandler("all_monitorings", all_monitorings))
+telegram_dispatcher.add_handler(CommandHandler("help", help))
+telegram_dispatcher.add_handler(CommandHandler("start", help))
 telegram_updater.start_polling()
 while True:
     sleep(300)
