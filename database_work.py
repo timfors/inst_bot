@@ -1,8 +1,10 @@
 from inst_account import InstAccount
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import psycopg2
+import os
 
-connection = psycopg2.connect(user="timfors", password="weas2222", host="localhost", port="5432", dbname="insta")
+connection = psycopg2.connect(user="mpyebwhixhtcmy", password="5d8c92b8a9848ea60c84757c30e225e4f14829552c027a787556bb66ce25d1a3",
+                              host=os.getenv('DATABASE_URL'), port="5432", dbname="d7la9jmdc5vd0b")
 connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cursor = connection.cursor()
 
@@ -15,7 +17,7 @@ def load_accounts():
                 accounts.append(InstAccount(acc[0].strip(), acc[1], [x.strip() for x in acc[3]], [x.strip() for x in acc[2]]))
         return accounts
 
-print([account.telegram_username for account in load_accounts()])
+print([account.username for account in load_accounts()])
 
 def remove_account(account: InstAccount):
         cursor.execute(f"DELETE FROM monitor_account WHERE username = '{account.username}'")
