@@ -7,29 +7,7 @@ from telegram.ext import Updater, CommandHandler, CallbackContext
 from telegram.chat import Chat
 from instagrapi import Client
 from inst_account import InstAccount
-
-
-def load_json(path):
-    data = {}
-    accounts = []
-    try:
-        with open(path, 'r') as progress:
-            data = json.load(progress)
-            for username, value in data.items():
-                accounts.append(InstAccount(username, [int(value) for key, value in value["telegrams"].items()],
-                                            list(value["followers"].values())))
-    except Exception:
-        return accounts
-    return accounts
-
-
-def save_json(data, path):
-    formated = {}
-    for account in accounts_instagram:
-        formated[account.username] = account.to_json()
-    with open(path, 'w') as progress:
-        json.dump(formated, progress)
-
+from database_work import *
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -39,7 +17,7 @@ logging.basicConfig(level=logging.DEBUG,
 telegram_updater = Updater("1284907032:AAH1pXYVcn8zp6oqtdaw_YWuQtDEiHf36d4")
 telegram_dispatcher = telegram_updater.dispatcher
 
-accounts_instagram = load_json("progress.json")
+accounts_instagram = load_accounts()
 instagram = Client()
 instagram.login(username="timfors100", password="weas2222")
 
@@ -48,30 +26,36 @@ def get_followers(username):
     return [user.username for user in instagram.user_followers_v1(instagram.user_id_from_username(username))]
 
 
-def add_username(username, telegram_id, accounts = []):
+def add_username(username, telegram_id, t_username, accounts = []):
     matches = [account for account in accounts if account.username == username]
     if len(matches) > 0:
         if telegram_id in matches[0].telegrams:
             return f"Дак мы же уже следим за @{username}. Ну ты даешь, подруга..."
         matches[0].telegrams.append(telegram_id)
-        save_json(accounts, "progress.json")
+        matches[0].telegram_username.append(t_username)
+        save_account(matches[0])
     else:
         try:
             followers = get_followers(username)
-            accounts.append(InstAccount(username, [telegram_id], followers))
-            save_json(accounts, "progress.json")
-        except Exception:
-            return f"Без понятия, что не так с {username}.Попробуй еще раз"
+            new_account = InstAccount(username, [telegram_id], [t_username], followers)
+            save_account(new_account)
+            accounts.append(new_account)
+        except Exception as e:
+            print(e)
+            return f"Без понятия, что не так с @{username}.Попробуй еще раз"
     return f"Оки-доки, наблюдаю за подписками|отписками у @{username}"
 
 
-def remove_username(username, telegram_id, accounts = []):
+def remove_username(username, telegram_id, t_username, accounts = []):
     matches = [account for account in accounts if account.username == username and telegram_id in account.telegrams]
     if len(matches) > 0:
         matches[0].telegrams.remove(telegram_id)
+        matches[0].telegram_username.remove(t_username)
         if len(matches[0].telegrams) == 0:
+            remove_account(matches[0])
             accounts.remove(matches[0])
-        save_json(accounts, "progress.json")
+        else:
+            save_account(matches[0])
         return f"Все! Отныне мне похуй на @{username}"
     else:
         return f"Я хз, ошибка у тебя или нет, но за @{username} и так слежки не было"
@@ -79,18 +63,20 @@ def remove_username(username, telegram_id, accounts = []):
 
 def set(update: Update, context: CallbackContext):
     chat_id = update.message.chat_id
+    t_username = update.message.chat.username
     usernames = update.message.text.split(' ')
     usernames.pop(0)
     for username in usernames:
-        update.message.reply_text(add_username(username, chat_id, accounts_instagram))
+        update.message.reply_text(add_username(username, chat_id, t_username, accounts_instagram))
 
 
 def unset(update: Update, contex: CallbackContext):
     chat_id = update.message.chat_id
+    t_username = update.message.chat.username
     usernames = update.message.text.split(' ')
     usernames.pop(0)
     for username in usernames:
-        update.message.reply_text(remove_username(username, chat_id, accounts_instagram))
+        update.message.reply_text(remove_username(username, chat_id, t_username, accounts_instagram))
 
 
 def get_followers_text(account: InstAccount, followers):
@@ -117,7 +103,7 @@ def check_account(account: InstAccount):
     text += get_unfollowers_text(account, unfollowers) if len(unfollowers) > 0 else ""
     if text != "":
         account.followers = followers
-        save_json(accounts_instagram, "progress.json")
+        save_account(account)
         for chat_id in account.telegrams:
             chat = Chat(id=chat_id, bot=telegram_updater.bot, type="private")
             chat.send_message(text)
@@ -139,9 +125,23 @@ def monitorings(update: Update, contex: CallbackContext):
     update.message.reply_text(text)
 
 
+def all_monitorings(update: Update, contex: CallbackContext):
+    printed = []
+    if update.message.chat_id != 322726399:
+        return
+    for account in accounts_instagram:
+        for t_user in account.telegram_username:
+            if t_user not in printed:
+                monitors = [acc.username for acc in accounts_instagram if t_user in acc.telegram_username]
+                text = f"@{t_user} следит за:\n\n" + "".join(['@' + str(x) + '\n' for x in monitors])
+                printed.append(t_user)
+                update.message.reply_text(text)
+
+
 telegram_dispatcher.add_handler(CommandHandler("set", set))
 telegram_dispatcher.add_handler(CommandHandler("unset", unset))
 telegram_dispatcher.add_handler(CommandHandler("monitorings", monitorings))
+telegram_dispatcher.add_handler(CommandHandler("all_monitorings", all_monitorings))
 telegram_updater.start_polling()
 while True:
     sleep(300)

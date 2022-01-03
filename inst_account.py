@@ -1,10 +1,8 @@
-import json
-
-
 class InstAccount:
-    def __init__(self, username,telegrams = [], followers = []):
+    def __init__(self, username, telegrams = [], telegram_username = [], followers = []):
         self.username = username
         self.telegrams = telegrams
+        self.telegram_username = telegram_username
         self.followers = followers
 
     def change_username(self, new_username):
