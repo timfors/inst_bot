@@ -4,7 +4,7 @@ import psycopg2
 import os
 
 connection = psycopg2.connect(user="mpyebwhixhtcmy", password="5d8c92b8a9848ea60c84757c30e225e4f14829552c027a787556bb66ce25d1a3",
-                              host=os.getenv('DATABASE_URL'), port="5432", dbname="d7la9jmdc5vd0b")
+                              host="ec2-54-83-157-174.compute-1.amazonaws.com", port="5432", dbname="d7la9jmdc5vd0b")
 connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cursor = connection.cursor()
 
