@@ -36,6 +36,9 @@ def add_username(username, telegram_id, t_username, accounts = []):
         save_account(matches[0])
     else:
         try:
+            user_info = instagram.user_info(username)
+            if (user_info.is_private)
+                return f"Сорямба @{username} приватный.С такими дел не имею."
             followers = get_followers(username)
             new_account = InstAccount(username, [telegram_id], [t_username], followers)
             save_account(new_account)
@@ -139,10 +142,15 @@ def all_monitorings(update: Update, contex: CallbackContext):
 
 
 def help(update: Update, contex: CallbackContext):
-    text = "Бот уведомляет о новых подписках | отписках просматриваемых аккаунтов в инсте. ПРИВАТНЫЕ АККАУНТЫ НЕ ПРОСМАТРИВАЮТСЯ.\n\n" \
+    text = "Бот уведомляет о новых подписках | отписках просматриваемых аккаунтов в инсте. Если кто-то сменит ник, то бот будет считать как |отписка+новая подписка|.ПРИВАТНЫЕ АККАУНТЫ НЕ ПРОСМАТРИВАЮТСЯ.\n\n" \
             "Команды:\n/set - Добавляет аккаунты для мониторинга.Пример:\n/set - biba @boba\n\n/unset - Убирает аккаунты из мониторинга.Пример:\n/unset @biba boba\n\n" \
             "/monitoring - Отображает все аккаунты, за которыми бот следит для вас"
     update.message.reply_text(text)
+
+def check_privacity():
+    for account in accounts_instagram:
+        if instagram.user_info(account.username).is_private:
+            remove_account(account)
 
 telegram_dispatcher.add_handler(CommandHandler("set", set))
 telegram_dispatcher.add_handler(CommandHandler("unset", unset))
@@ -153,5 +161,6 @@ telegram_dispatcher.add_handler(CommandHandler("start", help))
 telegram_updater.start_polling()
 while True:
     sleep(300)
+    check_privacity()
     check_accounts()
 telegram_updater.idle()
