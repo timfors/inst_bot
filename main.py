@@ -36,7 +36,7 @@ def add_username(username, telegram_id, t_username, accounts = []):
         save_account(matches[0])
     else:
         try:
-            user_info = instagram.user_info(username)
+            user_info = instagram.user_info(instagram.user_id_from_username(username))
             if user_info.is_private:
                 return f"Сорямба @{username} приватный.С такими дел не имею."
             followers = get_followers(username)
@@ -149,7 +149,7 @@ def help(update: Update, contex: CallbackContext):
 
 def check_privacity():
     for account in accounts_instagram:
-        if instagram.user_info(account.username).is_private:
+        if instagram.user_info(instagram.user_id_from_username(account.username)).is_private:
             remove_account(account)
 
 telegram_dispatcher.add_handler(CommandHandler("set", set))
