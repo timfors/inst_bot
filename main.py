@@ -37,7 +37,7 @@ def add_username(username, telegram_id, t_username, accounts = []):
     else:
         try:
             user_info = instagram.user_info(username)
-            if (user_info.is_private)
+            if user_info.is_private:
                 return f"Сорямба @{username} приватный.С такими дел не имею."
             followers = get_followers(username)
             new_account = InstAccount(username, [telegram_id], [t_username], followers)
