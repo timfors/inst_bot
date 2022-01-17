@@ -149,8 +149,11 @@ def help(update: Update, contex: CallbackContext):
 
 def check_privacity():
     for account in accounts_instagram:
-        if instagram.user_info(instagram.user_id_from_username(account.username)).is_private:
+        is_private = instagram.user_info(instagram.user_id_from_username(account.username)).is_private
+        print(f"{account.username}: {is_private}")
+        if is_private:
             remove_account(account)
+
 
 telegram_dispatcher.add_handler(CommandHandler("set", set))
 telegram_dispatcher.add_handler(CommandHandler("unset", unset))
