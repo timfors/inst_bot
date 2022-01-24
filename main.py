@@ -23,7 +23,7 @@ instagram.login(username="timfors100", password="weas2222")
 
 
 def get_followers(username):
-    return [user.username for user in instagram.user_followers_v1(instagram.user_id_from_username(username))]
+    return [user.username for user in instagram.user_followers_gql(instagram.user_id_from_username(username))]
 
 
 def add_username(username, telegram_id, t_username, accounts = []):
