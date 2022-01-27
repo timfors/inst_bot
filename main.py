@@ -19,7 +19,7 @@ telegram_dispatcher = telegram_updater.dispatcher
 
 accounts_instagram = load_accounts()
 instagram = Client()
-instagram.login(username="timfors005", password="weas2222")
+instagram.login(username="daunitze", password="ioJfg46*SnmL")
 
 
 def get_followers(username):
@@ -163,7 +163,7 @@ telegram_dispatcher.add_handler(CommandHandler("help", help))
 telegram_dispatcher.add_handler(CommandHandler("start", help))
 telegram_updater.start_polling()
 while True:
-    sleep(300)
+    sleep(1800)
     check_privacity()
     check_accounts()
 telegram_updater.idle()
