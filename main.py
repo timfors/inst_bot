@@ -1,5 +1,6 @@
 import json
 import random
+import time
 from time import sleep
 import logging
 from telegram import Update
@@ -8,6 +9,7 @@ from telegram.chat import Chat
 from instagrapi import Client
 from inst_account import InstAccount
 from database_work import *
+from valeyvall_booking import *
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -162,8 +164,15 @@ telegram_dispatcher.add_handler(CommandHandler("all_monitorings", all_monitoring
 telegram_dispatcher.add_handler(CommandHandler("help", help))
 telegram_dispatcher.add_handler(CommandHandler("start", help))
 telegram_updater.start_polling()
+time.timezone = 3
+lastTime = time.time()
 while True:
-    sleep(1800)
-    check_privacity()
-    check_accounts()
+    if (time.time - lastTime > 1800):
+        check_privacity()
+        check_accounts()
+        lastTime = time.time()
+    if (get_day() == 2):
+        try_tuesday()
+    elif (get_day() == 4):
+        try_thursday()
 telegram_updater.idle()
