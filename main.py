@@ -172,7 +172,7 @@ while True:
         check_accounts()
         lastTime = time.time()
     if (get_day() == 2):
-        try_tuesday()
+        try_reserve(17, 00)
     elif (get_day() == 4):
-        try_thursday()
+        try_reserve(18, 00)
 telegram_updater.idle()
