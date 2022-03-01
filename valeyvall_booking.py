@@ -24,15 +24,19 @@ update_url = "https://mobifitness.ru/api/v6/club/1083/schedule.json"
 def get_day():
     return datetime.datetime.today().isoweekday()
 
-
-def try_reserve(h, m):
+def check_time(h, m):
     if time.timezone != -10800:
         time.timezone = -10800
-    r = requests.get(update_url, headers=headers).text
-    data = json.loads(r)
-    data_ids = [x['id'] for x in data["schedule"] if x['activity']['id'] == 46588]
     t = time.localtime(time.time())
     if t.tm_hour == h and t.tm_min == m:
-        requests.post(url=url, headers=headers, data={"clubId": 1083, "scheduleId": data_ids[0]})
-        requests.post(url=url, headers=headers, data={"clubId": 1083, "scheduleId": data_ids[1]})
+        return True
+    return False
+
+
+def try_reserve(activity_id):
+    r = requests.get(update_url, headers=headers).text
+    data = json.loads(r)
+    data_ids = [x['id'] for x in data["schedule"] if x['activity']['id'] == activity_id]
+    requests.post(url=url, headers=headers, data={"clubId": 1083, "scheduleId": data_ids[0]})
+    requests.post(url=url, headers=headers, data={"clubId": 1083, "scheduleId": data_ids[1]})
     return None
