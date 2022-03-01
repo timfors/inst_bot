@@ -1,6 +1,6 @@
 import requests
 import time
-import datetime
+from datetime import datetime, timezone, timedelta
 import json
 from bs4 import BeautifulSoup
 
@@ -25,11 +25,8 @@ def get_day():
     return datetime.datetime.today().isoweekday()
 
 def check_time(h, m):
-    if time.timezone != -10800:
-        time.timezone = -10800
-    t = time.localtime(time.time())
-    print(t)
-    if t.tm_hour == h and t.tm_min == m:
+    t = datetime.now(timezone(timedelta(hours=3))).time()
+    if t.hour == h and t.minute == m:
         return True
     return False
 
