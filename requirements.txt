@@ -106,7 +106,7 @@ geojson==2.5.0
 gevent==20.9.0
 gitdb==4.0.7
 GitPython==3.1.23
-gpg===1.16.0-unknown
+gpg===1.10.0
 graphene==2.1.7
 graphene-sqlalchemy==2.1.2
 graphql-core==2.2.1
