@@ -27,8 +27,8 @@ def get_day():
 def check_time(h, m):
     if time.timezone != -10800:
         time.timezone = -10800
-    print(time.timezone)
     t = time.localtime(time.time())
+    print(t)
     if t.tm_hour == h and t.tm_min == m:
         return True
     return False
