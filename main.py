@@ -166,17 +166,18 @@ telegram_dispatcher.add_handler(CommandHandler("start", help))
 telegram_updater.start_polling()
 time.timezone = 3
 lastTime = time.time()
+check_time(15, 00)
 while True:
     if time.time() - lastTime > 1800:
         check_privacity()
         check_accounts()
         lastTime = time.time()
-    if get_day() == 2 and check_time(17, 17):
-        try_reserve(46588)
-        chat = Chat(id=322726399, bot=telegram_updater.bot, type="private")
-        chat.send_message("Попытался записаться на волейбол")
-    elif get_day() == 4 and check_time(18, 0):
-        try_reserve(46588)
-        chat = Chat(id=322726399, bot=telegram_updater.bot, type="private")
-        chat.send_message("Попытался записаться на волейбол")
+    #if get_day() == 2 and check_time(17, 17):
+     #   try_reserve(46588)
+      #  chat = Chat(id=322726399, bot=telegram_updater.bot, type="private")
+       # chat.send_message("Попытался записаться на волейбол")
+    #elif get_day() == 4 and check_time(18, 0):
+     #   try_reserve(46588)
+      #  chat = Chat(id=322726399, bot=telegram_updater.bot, type="private")
+       # chat.send_message("Попытался записаться на волейбол")
 telegram_updater.idle()
