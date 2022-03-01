@@ -247,7 +247,6 @@ pygraphviz==1.7
 PyHamcrest==1.9.0
 PyICU==2.5
 pyinotify==0.9.6
-PyInstaller==3.5+498e6ee058
 pylnk3==0.2.1
 pyminifier==2.1
 pymssql==2.1.4
