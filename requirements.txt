@@ -101,7 +101,6 @@ Flask-SocketIO==5.0.1
 Flask-SQLAlchemy==2.5.1
 Flask-WTF==0.14.3
 future==0.18.2
-GDAL==3.4.1
 geoip2==2.9.0
 geojson==2.5.0
 gevent==20.9.0
