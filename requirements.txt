@@ -53,7 +53,6 @@ certifi==2020.6.20
 cffi==1.14.6
 chardet==4.0.0
 CherryPy==8.9.1
-chrome-gnome-shell==0.0.0
 cli-helpers==2.2.0
 click==7.1.2
 click-plugins==1.1.1
