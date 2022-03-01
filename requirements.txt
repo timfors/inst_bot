@@ -81,7 +81,6 @@ et-xmlfile==1.0.1
 ExifRead==2.3.2
 expiringdict==1.1.4
 faraday-agent-parameters-types==1.0.1
-faraday-client==1.1.0
 faraday-plugins==1.5.2
 fastapi==0.63.0
 feedparser==5.2.1
