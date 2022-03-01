@@ -148,13 +148,7 @@ jq==1.2.1
 jsonschema==3.2.0
 jupyter-core==4.7.1
 kaitaistruct==0.9
-kali-tweaks==2021.3.3
 kazam==1.4.5
-KismetCaptureBtGeiger==2021.7.1
-KismetCaptureFreaklabsZigbee==2018.7.0
-KismetCaptureRtl433==2020.10.1
-KismetCaptureRtladsb==2020.10.1
-KismetCaptureRtlamr==2020.10.1
 kiwisolver==1.3.1
 ldap3==2.8.1
 ldapdomaindump==0.9.3
