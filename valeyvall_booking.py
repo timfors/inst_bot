@@ -19,8 +19,6 @@ dataTuesday = {
 url = "https://mobifitness.ru/api/v6/account/reserve.json"
 update_url = "https://mobifitness.ru/api/v6/club/1083/schedule.json"
 
-if (time.timezone != -10800):
-    time.timezone = -10800
 
 
 def get_day():
@@ -28,6 +26,8 @@ def get_day():
 
 
 def try_reserve(h, m):
+    if time.timezone != -10800:
+        time.timezone = -10800
     r = requests.get(update_url, headers=headers).text
     data = json.loads(r)
     data_ids = [x['id'] for x in data["schedule"] if x['activity']['id'] == 46588]
