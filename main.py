@@ -167,7 +167,7 @@ telegram_updater.start_polling()
 time.timezone = 3
 lastTime = time.time()
 while True:
-    if time.time - lastTime > 1800:
+    if time.time() - lastTime > 1800:
         check_privacity()
         check_accounts()
         lastTime = time.time()
