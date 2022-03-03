@@ -180,7 +180,7 @@ while True:
             chat = Chat(id=322726399, bot=telegram_updater.bot, type="private")
             chat.send_message("Попытался записаться на волейбол")
         lastReserveTime = time.time()
-    elif get_day() == 4 and check_time(19, 0):
+    elif get_day() == 4 and check_time(18, 51):
         try_reserve(46588)
         if time.time() - lastReserveTime > 60:
             chat = Chat(id=322726399, bot=telegram_updater.bot, type="private")
