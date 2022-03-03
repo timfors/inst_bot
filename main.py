@@ -166,8 +166,9 @@ telegram_dispatcher.add_handler(CommandHandler("start", help))
 telegram_updater.start_polling()
 time.timezone = 3
 lastTime = time.time()
-check_time(15, 00)
 lastReserveTime = 0
+t = datetime.now(timezone(timedelta(hours=3))).time()
+print(t.hour)
 while True:
     if time.time() - lastTime > 1800:
         check_privacity()
