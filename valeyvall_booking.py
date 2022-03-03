@@ -22,7 +22,7 @@ update_url = "https://mobifitness.ru/api/v6/club/1083/schedule.json"
 
 
 def get_day():
-    return datetime.datetime.today().isoweekday()
+    return datetime.today().isoweekday()
 
 def check_time(h, m):
     t = datetime.now(timezone(timedelta(hours=3))).time()
