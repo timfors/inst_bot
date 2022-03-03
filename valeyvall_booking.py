@@ -30,10 +30,18 @@ def check_time(h, m):
         return True
     return False
 
-def try_reserve(activity_id):
+
+data_ids = []
+
+
+def update_volley(activity_id):
+    global data_ids
     r = requests.get(update_url, headers=headers).text
     data = json.loads(r)
     data_ids = [x['id'] for x in data["schedule"] if x['activity']['id'] == activity_id]
+
+
+def try_reserve():
     requests.post(url=url, headers=headers, data={"clubId": 1083, "scheduleId": data_ids[0]})
     requests.post(url=url, headers=headers, data={"clubId": 1083, "scheduleId": data_ids[1]})
     return None
