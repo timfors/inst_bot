@@ -25,11 +25,12 @@ def get_day():
     return datetime.datetime.today().isoweekday()
 
 def check_time(h, m):
-    t = datetime.now(timezone(timedelta(hours=3))).time()
+    t = datetime.now(timezone(timedelta(hours=8))).time()
     if t.hour == h and t.minute == m:
         return True
     return False
 
+print(check_time(0, 0))
 
 def try_reserve(activity_id):
     r = requests.get(update_url, headers=headers).text
