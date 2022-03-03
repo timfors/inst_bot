@@ -25,7 +25,7 @@ def get_day():
     return datetime.datetime.today().isoweekday()
 
 def check_time(h, m):
-    t = datetime.now(timezone(timedelta(hours=8))).time()
+    t = datetime.now(timezone(timedelta(hours=3))).time()
     if t.hour == h and t.minute == m:
         return True
     return False
