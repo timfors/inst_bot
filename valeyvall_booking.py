@@ -30,8 +30,6 @@ def check_time(h, m):
         return True
     return False
 
-print(check_time(0, 0))
-
 def try_reserve(activity_id):
     r = requests.get(update_url, headers=headers).text
     data = json.loads(r)
