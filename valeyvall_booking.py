@@ -41,7 +41,5 @@ def update_volley(activity_id):
     data_ids = [x['id'] for x in data["schedule"] if x['activity']['id'] == activity_id]
 
 
-def try_reserve():
-    requests.post(url=url, headers=headers, data={"clubId": 1083, "scheduleId": data_ids[0]})
-    requests.post(url=url, headers=headers, data={"clubId": 1083, "scheduleId": data_ids[1]})
-    return None
+def try_reserve(id: int):
+    return requests.post(url=url, headers=headers, data={"clubId": 1083, "scheduleId": data_ids[id]})

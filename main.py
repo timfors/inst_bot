@@ -170,20 +170,21 @@ lastReserveTime = 0
 t = datetime.now(timezone(timedelta(hours=3))).time()
 update_volley(46588)
 while True:
-    if time.time() - lastTime > 1800:
+    if time.time() - lastTime > 1800 and not check_time(16, 59)\
+            and not check_time(17, 00) and not check_time(17, 59) and not check_time(18, 00):
         check_privacity()
         check_accounts()
         lastTime = time.time()
     if get_day() == 1 and check_time(0, 0):
         update_volley(46588)
     if get_day() == 2 and check_time(17, 0):
-        try_reserve()
+        try_reserve(0)
         if time.time() - lastReserveTime > 60:
             chat = Chat(id=322726399, bot=telegram_updater.bot, type="private")
             chat.send_message("Попытался записаться на волейбол")
         lastReserveTime = time.time()
     elif get_day() == 4 and check_time(18, 0):
-        try_reserve()
+        try_reserve(1)
         if time.time() - lastReserveTime > 60:
             chat = Chat(id=322726399, bot=telegram_updater.bot, type="private")
             chat.send_message("Попытался записаться на волейбол")
