@@ -21,7 +21,7 @@ telegram_dispatcher = telegram_updater.dispatcher
 
 accounts_instagram = load_accounts()
 instagram = Client()
-instagram.login(username="daunitze", password="rebTool32")
+instagram.login(username="", password="")
 
 
 def get_followers(username):
