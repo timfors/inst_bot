@@ -9,7 +9,7 @@ from telegram.chat import Chat
 from instagrapi import Client
 from inst_account import InstAccount
 from database_work import *
-from valeyvall_booking import *
+from volleyball_booking import *
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)

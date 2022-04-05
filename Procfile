@@ -1,1 +1,1 @@
-bot: python main.py
+bot: python volleyball_booking.py
